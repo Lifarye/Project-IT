@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 20, 2024 at 12:17 AM
+-- Generation Time: Lis 26, 2024 at 11:33 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -173,54 +173,56 @@ CREATE TABLE `products` (
   `description` text DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `stock_quantity` int(11) DEFAULT 0,
-  `category_id` int(11) DEFAULT NULL
+  `category_id` int(11) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `NAME`, `description`, `price`, `stock_quantity`, `category_id`) VALUES
-(1, 'Dell XPS 13', 'Ultrabook with Intel i7 processor and 16GB RAM', 1200.00, 10, 1),
-(2, 'MacBook Air', 'Lightweight laptop with M2 chip and 256GB SSD', 999.99, 15, 1),
-(3, 'Lenovo ThinkPad X1 Carbon', 'Business laptop with Intel i5 and 512GB SSD', 1400.00, 8, 1),
-(4, 'Asus ROG Zephyrus', 'Gaming laptop with NVIDIA RTX 3060', 1500.00, 5, 1),
-(5, 'HP Pavilion 15', 'Affordable laptop with AMD Ryzen 5 and 8GB RAM', 700.00, 20, 1),
-(6, 'Acer Aspire 5', 'Affordable laptop with Intel i3 and 4GB RAM', 450.00, 30, 1),
-(7, 'Razer Blade 15', 'Premium gaming laptop with RTX 3070', 2000.00, 5, 1),
-(8, 'Microsoft Surface Laptop 5', 'Ultra-slim laptop with touch screen', 1100.00, 10, 1),
-(9, 'Gigabyte Aorus 15', 'Gaming laptop with Intel i7 and RTX 3070', 1800.00, 8, 1),
-(10, 'Huawei MateBook X Pro', 'Sleek laptop with 3K display', 1200.00, 12, 1),
-(11, 'Dell Inspiron Desktop', 'Desktop computer with Intel i5 and 16GB RAM', 800.00, 12, 2),
-(12, 'iMac 24\"', 'All-in-one computer with M1 chip and 4K display', 1500.00, 10, 2),
-(13, 'HP Omen 25L', 'Gaming desktop with AMD Ryzen 7 and RTX 3060', 1200.00, 7, 2),
-(14, 'Custom Gaming PC', 'Custom build with Ryzen 9 and RTX 4090', 2500.00, 3, 2),
-(15, 'Lenovo IdeaCentre', 'Compact desktop for home and office', 600.00, 25, 2),
-(16, 'Asus VivoPC', 'Compact desktop for everyday tasks', 500.00, 18, 2),
-(17, 'Apple Mac Mini', 'Compact desktop with M2 chip', 899.00, 15, 2),
-(18, 'Dell Alienware Aurora', 'High-end gaming PC with RTX 4080', 3500.00, 3, 2),
-(19, 'HP Envy Desktop', 'Desktop with Intel i7 and 16GB RAM', 1100.00, 10, 2),
-(20, 'Lenovo Legion Tower 5', 'Gaming tower with AMD Ryzen 5 and RTX 3060', 1300.00, 7, 2),
-(21, 'iPhone 14', 'Apple smartphone with A16 Bionic chip', 999.00, 20, 3),
-(22, 'Samsung Galaxy S23', 'Flagship Android phone with 120Hz display', 899.99, 15, 3),
-(23, 'Google Pixel 7', 'Google phone with stock Android experience', 599.99, 30, 3),
-(24, 'OnePlus 11', 'High-performance Android phone with Snapdragon 8 Gen 2', 699.00, 10, 3),
-(25, 'Xiaomi Redmi Note 12', 'Budget-friendly phone with 108MP camera', 299.00, 50, 3),
-(26, 'Samsung Galaxy A54', 'Mid-range smartphone with 5G support', 399.99, 40, 3),
-(27, 'Sony Xperia 1 IV', 'Premium phone with 4K OLED display', 1199.00, 10, 3),
-(28, 'Oppo Find X5 Pro', 'Flagship phone with Hasselblad cameras', 899.00, 20, 3),
-(29, 'Realme GT 2 Pro', 'Affordable flagship with Snapdragon 8 Gen 1', 549.99, 25, 3),
-(30, 'Motorola Edge 30', 'Stylish phone with curved display', 499.99, 30, 3),
-(31, 'Logitech MX Master 3S', 'Ergonomic wireless mouse with customizable buttons', 99.99, 50, 4),
-(32, 'Corsair K70 RGB', 'Mechanical gaming keyboard with RGB backlighting', 129.99, 40, 4),
-(33, 'Anker PowerCore 20K', 'Portable charger with 20,000mAh capacity', 49.99, 100, 4),
-(34, 'Samsung T7 Portable SSD', 'Fast external SSD with 1TB capacity', 120.00, 30, 4),
-(35, 'Sony WH-1000XM5', 'Noise-cancelling wireless headphones', 349.99, 25, 4),
-(36, 'Kingston A2000 NVMe SSD', '1TB NVMe SSD for fast storage', 89.99, 40, 4),
-(37, 'HyperX Cloud II', 'Gaming headset with surround sound', 99.99, 50, 4),
-(38, 'Belkin USB-C Hub', 'Multi-port hub for laptops and tablets', 59.99, 70, 4),
-(39, 'Apple Magic Keyboard', 'Wireless keyboard for Apple devices', 129.00, 20, 4),
-(40, 'SanDisk Extreme Portable SSD', 'Compact external SSD with 2TB capacity', 200.00, 15, 4);
+INSERT INTO `products` (`product_id`, `NAME`, `description`, `price`, `stock_quantity`, `category_id`, `image_url`) VALUES
+(1, 'Dell XPS 13', 'Ultrabook with Intel i7 processor and 16GB RAM', 1200.00, 10, 1, 'images/product_1.jpg'),
+(2, 'MacBook Air', 'Lightweight laptop with M2 chip and 256GB SSD', 999.99, 15, 1, 'images/product_2.jpg'),
+(3, 'Lenovo ThinkPad X1 Carbon', 'Business laptop with Intel i5 and 512GB SSD', 1400.00, 8, 1, 'images/product_3.jpg'),
+(4, 'Asus ROG Zephyrus', 'Gaming laptop with NVIDIA RTX 3060', 1500.00, 5, 1, 'images/product_4.jpg'),
+(5, 'HP Pavilion 15', 'Affordable laptop with AMD Ryzen 5 and 8GB RAM', 700.00, 20, 1, 'images/product_5.jpg'),
+(6, 'Acer Aspire 5', 'Affordable laptop with Intel i3 and 4GB RAM', 450.00, 30, 1, 'images/product_6.jpg'),
+(7, 'Razer Blade 15', 'Premium gaming laptop with RTX 3070', 2000.00, 5, 1, 'images/product_7.jpg'),
+(8, 'Microsoft Surface Laptop 5', 'Ultra-slim laptop with touch screen', 1100.00, 10, 1, 'images/product_8.jpg'),
+(9, 'Gigabyte Aorus 15', 'Gaming laptop with Intel i7 and RTX 3070', 1800.00, 8, 1, 'images/product_9.jpg'),
+(10, 'Huawei MateBook X Pro', 'Sleek laptop with 3K display', 1200.00, 12, 1, 'images/product_10.jpg'),
+(11, 'Dell Inspiron Desktop', 'Desktop computer with Intel i5 and 16GB RAM', 800.00, 12, 2, 'images/product_11.jpg'),
+(12, 'iMac 24\"', 'All-in-one computer with M1 chip and 4K display', 1500.00, 10, 2, 'images/product_12.jpg'),
+(13, 'HP Omen 25L', 'Gaming desktop with AMD Ryzen 7 and RTX 3060', 1200.00, 7, 2, 'images/product_13.jpg'),
+(14, 'Custom Gaming PC', 'Custom build with Ryzen 9 and RTX 4090', 2500.00, 3, 2, 'images/product_14.jpg'),
+(15, 'Lenovo IdeaCentre', 'Compact desktop for home and office', 600.00, 25, 2, 'images/product_15.jpg'),
+(16, 'Asus VivoPC', 'Compact desktop for everyday tasks', 500.00, 18, 2, 'images/product_16.jpg'),
+(17, 'Apple Mac Mini', 'Compact desktop with M2 chip', 899.00, 15, 2, 'images/product_17.jpg'),
+(18, 'Dell Alienware Aurora', 'High-end gaming PC with RTX 4080', 3500.00, 3, 2, 'images/product_18.jpg'),
+(19, 'HP Envy Desktop', 'Desktop with Intel i7 and 16GB RAM', 1100.00, 10, 2, 'images/product_19.jpg'),
+(20, 'Lenovo Legion Tower 5', 'Gaming tower with AMD Ryzen 5 and RTX 3060', 1300.00, 7, 2, 'images/product_20.jpg'),
+(21, 'iPhone 14', 'Apple smartphone with A16 Bionic chip', 999.00, 20, 3, 'images/product_21.jpg'),
+(22, 'Samsung Galaxy S23', 'Flagship Android phone with 120Hz display', 899.99, 15, 3, 'images/product_22.jpg'),
+(23, 'Google Pixel 7', 'Google phone with stock Android experience', 599.99, 30, 3, 'images/product_23.jpg'),
+(24, 'OnePlus 11', 'High-performance Android phone with Snapdragon 8 Gen 2', 699.00, 10, 3, 'images/product_24.jpg'),
+(25, 'Xiaomi Redmi Note 12', 'Budget-friendly phone with 108MP camera', 299.00, 50, 3, 'images/product_25.jpg'),
+(26, 'Samsung Galaxy A54', 'Mid-range smartphone with 5G support', 399.99, 40, 3, 'images/product_26.jpg'),
+(27, 'Sony Xperia 1 IV', 'Premium phone with 4K OLED display', 1199.00, 10, 3, 'images/product_27.jpg'),
+(28, 'Oppo Find X5 Pro', 'Flagship phone with Hasselblad cameras', 899.00, 20, 3, 'images/product_28.jpg'),
+(29, 'Realme GT 2 Pro', 'Affordable flagship with Snapdragon 8 Gen 1', 549.99, 25, 3, 'images/product_29.jpg'),
+(30, 'Motorola Edge 30', 'Stylish phone with curved display', 499.99, 30, 3, 'images/product_30.jpg'),
+(31, 'Logitech MX Master 3S', 'Ergonomic wireless mouse with customizable buttons', 99.99, 50, 4, 'images/product_31.jpg'),
+(32, 'Corsair K70 RGB', 'Mechanical gaming keyboard with RGB backlighting', 129.99, 40, 4, 'images/product_32.jpg'),
+(33, 'Anker PowerCore 20K', 'Portable charger with 20,000mAh capacity', 49.99, 100, 4, 'images/product_33.jpg'),
+(34, 'Samsung T7 Portable SSD', 'Fast external SSD with 1TB capacity', 120.00, 30, 4, 'images/product_34.jpg'),
+(35, 'Sony WH-1000XM5', 'Noise-cancelling wireless headphones', 349.99, 25, 4, 'images/product_35.jpg'),
+(36, 'Kingston A2000 NVMe SSD', '1TB NVMe SSD for fast storage', 89.99, 40, 4, 'images/product_36.jpg'),
+(37, 'HyperX Cloud II', 'Gaming headset with surround sound', 99.99, 50, 4, 'images/product_37.jpg'),
+(38, 'Belkin USB-C Hub', 'Multi-port hub for laptops and tablets', 59.99, 70, 4, 'images/product_38.jpg'),
+(39, 'Apple Magic Keyboard', 'Wireless keyboard for Apple devices', 129.00, 20, 4, 'images/product_39.jpg'),
+(40, 'SanDisk Extreme Portable SSD', 'Compact external SSD with 2TB capacity', 200.00, 15, 4, 'images/product_40.jpg');
+
 
 -- --------------------------------------------------------
 
