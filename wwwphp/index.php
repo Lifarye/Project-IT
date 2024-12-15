@@ -43,26 +43,21 @@ $featured_to_display = array_slice($featured_products, 0, 2);
     <title>E-commerce Store for Computers, Laptops, Smartphones and Electronic Accessories</title>
     <link rel="stylesheet" href="style.css" type="text/css" />
     <script>
-
         function searchProduct() {
-            
             const query = document.getElementById("searchInput").value.trim().toLowerCase();
 
-            
             if (!query) {
                 alert("Please enter a query.");
                 return;
             }
 
-            
-            const validCategories = ['laptops', 'computers', 'smartphones', 'accessories'];
-            if (!validCategories.includes(query)) {
-                alert("Invalid category. Please enter one of the following: laptops, computers, smartphones, or accessories.");
-                return;
-            }
-
-            
             window.location.href = `search.php?searchQuery=${encodeURIComponent(query)}&csrf_token=<?php echo $_SESSION['csrf_token']; ?>`;
+        }
+
+        function handleEnterKey(event) {
+            if (event.key === "Enter") {
+                searchProduct();
+            }
         }
     </script>
 </head>
@@ -79,8 +74,14 @@ $featured_to_display = array_slice($featured_products, 0, 2);
                     <li><a href="contact.php">Contact</a></li>
                 </ul>
             </nav>
+            <div class="cart">
+                <a href="cart.html">
+                    <img src="Images/cart-icon.png" alt="Shopping Cart" style="width: 30px; height: 30px;">
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
             <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search products...">
+                <input type="text" id="searchInput" placeholder="Search products..." onkeydown="handleEnterKey(event)">
                 <button onclick="searchProduct()">Search</button>
             </div>
         </div>

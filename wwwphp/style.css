@@ -68,6 +68,28 @@ header nav ul li a:hover {
     background-color: #0056b3;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart {
+    position: relative;
+}
+
+#cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: red;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+}
+
 main .banner {
     background-color: #f4f4f4;
     text-align: center;
@@ -108,43 +130,41 @@ main .banner {
     margin-bottom: 20px;
 }
 
-.product-list, .featured-list {
+.featured-list {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    justify-content: center; 
+    gap: 20px; 
+    flex-wrap: wrap; 
 }
 
-.product-item, .featured-item {
+.featured-item {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    padding: 15px;
     background-color: #f4f4f4;
-    padding: 20px;
-    width: 200px;
     border-radius: 8px;
     text-align: center;
     transition: transform 0.3s ease;
 }
 
-.product-item:hover, .featured-item:hover {
+.featured-item:hover {
     transform: scale(1.05);
 }
 
-.product-item img, .featured-item img {
+.featured-item h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.featured-item img {
     width: 100%;
     border-radius: 8px;
     margin-bottom: 10px;
 }
 
-.product-item h3, .featured-item h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.product-item p {
-    margin-bottom: 10px;
-}
-
-.product-item button, .featured-item button {
-    padding: 8px 16px;
+.featured-item button {
+    padding: 6px 12px;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -152,32 +172,74 @@ main .banner {
     cursor: pointer;
 }
 
-.product-item button:hover, .featured-item button:hover {
+.featured-item button:hover {
     background-color: #0056b3;
 }
 
-footer {
-    background-color: #222;
+/* Nowy układ dla produktów w dwóch rzędach */
+.products .product-list {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Dynamiczne kolumny */
+    grid-template-rows: repeat(2, auto); /* Dwa rzędy */
+    gap: 15px; /* Odstępy między kafelkami */
+    padding: 10px;
+    overflow: hidden; /* Ukrycie przewijania */
+}
+
+.products .product-item {
+    padding: 15px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.products .product-item:hover {
+    transform: scale(1.05);
+}
+
+.products .product-item h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.products .product-item p {
+    margin-bottom: 10px;
+}
+
+.products .product-item img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.products .product-item button {
+    padding: 6px 12px;
+    background-color: #007bff;
     color: #fff;
-    padding: 20px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.products .product-item button:hover {
+    background-color: #0056b3;
+}
+
+.no-products { 
+    font-size: 1.2em;
+    color: #ff0000;
     text-align: center;
+    margin: 30px 0;
+    font-weight: bold;
 }
 
-footer .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+/* Specyficzne style dla każdej kategorii */
+
+.products .product-list.laptops .product-item {
+    max-width: 350px; /* Większy rozmiar dla laptopów */
+    flex: 1 1 calc(25% - 15px);
 }
 
-.about, .contact {
-    padding: 50px 20px;
-    background-color: #f9f9f9;
-    text-align: center;
-}
-
-.about h2, .contact h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-.about p
+@media (max-width: 1024px) {
+    .p
