@@ -38,6 +38,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         function addToCart(productId) {
+            // Zamiast wysyłać dane na serwer, wyświetlamy po prostu alert
             alert('Product ' + productId + ' added to cart!');
         }
     </script>
@@ -76,13 +77,12 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div id="details-<?= $product['product_id']; ?>" style="display: none;">
                                 <p><?= htmlspecialchars($product['description'], ENT_QUOTES, 'UTF-8'); ?></p>
                                 <p>$<?= number_format($product['price'], 2); ?></p>
-                                <button onclick="window.location.href='product-details.php?id=<?= urlencode($product['product_id']); ?>'">View Full Product</button>
                                 <br>
                                 <button onclick="addToCart(<?= $product['product_id']; ?>)">Add to Cart</button>
                             </div>
                         </div>
                     <?php endforeach; ?>
-                <?php endif; ?>
+                <?php endif; ?> 
             </div>
         </section>
     </main>

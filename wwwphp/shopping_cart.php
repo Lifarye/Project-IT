@@ -1,66 +1,46 @@
 <?php
 
+session_start();
 $db_server = "localhost";
 $db_user = "root";
 $db_pass = ""; 
-$db_name = "web page"; // Poprawiona nazwa bazy danych
+$db_name = "web page"; 
 $db_port = 3306;
 
 try {
     $dsn = "mysql:host=$db_server;dbname=$db_name;port=$db_port;charset=utf8mb4";
     $pdo = new PDO($dsn, $db_user, $db_pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    echo "Database connected successfully.";
 } catch (PDOException $e) {
     error_log("Connection failed: " . $e->getMessage());
     die("Connection failed. Please try again later.");
 }
 
-// Pobierz ID zalogowanego użytkownika (wymaga integracji z sesją)
-$customer_id = 1; // Zmień na dynamiczne ID użytkownika, np. $_SESSION['customer_id']
-
-// Pobierz aktywne zamówienie użytkownika
-$order_id = null;
-try {
-    $order_query = "SELECT order_id FROM orders WHERE customer_id = :customer_id AND status = 'In Cart' LIMIT 1";
-    $stmt = $pdo->prepare($order_query);
-    $stmt->bindParam(':customer_id', $customer_id, PDO::PARAM_INT);
-    $stmt->execute();
-
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($result) {
-        $order_id = $result['order_id'];
-    }
-} catch (PDOException $e) {
-    error_log("Error fetching order: " . $e->getMessage());
-}
-
-// Pobierz szczegóły zamówienia
+// Pobierz produkty z koszyka w sesji
 $cart_items = [];
 $total_price = 0;
 
-if ($order_id) {
-    try {
-        $details_query = "
-            SELECT od.detail_id, p.name, od.quantity, od.unit_price, p.image_url 
-            FROM order_details od
-            JOIN products p ON od.product_id = p.product_id
-            WHERE od.order_id = :order_id
-        ";
-        $stmt = $pdo->prepare($details_query);
-        $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
+if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
+    foreach ($_SESSION['cart'] as $cart_item) {
+        $product_id = $cart_item['product_id'];
+        $quantity = $cart_item['quantity'];
+
+        // Pobierz szczegóły produktu
+        $product_query = "SELECT name, unit_price, image_url FROM products WHERE product_id = :product_id LIMIT 1";
+        $stmt = $pdo->prepare($product_query);
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
         $stmt->execute();
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $cart_items[] = $row;
-            $total_price += $row['unit_price'] * $row['quantity']; // Oblicz całkowitą cenę (unit_price * quantity)
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($product) {
+            $product['quantity'] = $quantity;
+            $cart_items[] = $product;
+            $total_price += $product['unit_price'] * $quantity; // Oblicz całkowitą cenę (unit_price * quantity)
         }
-    } catch (PDOException $e) {
-        error_log("Error fetching cart details: " . $e->getMessage());
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,8 +82,13 @@ if ($order_id) {
                                 <p>Price: $<?= number_format($item['unit_price'], 2) ?></p>
                             </div>
                             <div>
+                                <form method="POST" action="update_cart.php">
+                                    <input type="hidden" name="product_id" value="<?= htmlspecialchars($item['product_id']) ?>">
+                                    <input type="number" name="quantity" value="<?= $item['quantity'] ?>" min="1">
+                                    <button type="submit">Update Quantity</button>
+                                </form>
                                 <form method="POST" action="remove_from_cart.php">
-                                    <input type="hidden" name="detail_id" value="<?= htmlspecialchars($item['detail_id']) ?>">
+                                    <input type="hidden" name="product_id" value="<?= htmlspecialchars($item['product_id']) ?>">
                                     <button type="submit">Remove</button>
                                 </form>
                             </div>
@@ -126,4 +111,5 @@ if ($order_id) {
     </footer>
 </body>
 </html>
-<?php $pdo = null; // Zamknij połączenie ?>
+
+<?php $pdo = null; ?>
