@@ -77,7 +77,12 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <p><?= htmlspecialchars($product['description'], ENT_QUOTES, 'UTF-8'); ?></p>
                             <p>$<?= number_format($product['price'], 2); ?></p>
                             <br>
-                            <button onclick="addToCart(<?= $product['product_id']; ?>)">Add to Cart</button>
+                            <form action="add_to_cart.php" method="post">
+									<input type="hidden" name="product_id" value="<?= $product['product_id']; ?>">
+									<input type="hidden" name="customer_id" value="<?= $_SESSION['customer_id']; ?>">
+									<input type="number" name="quantity" value="1" min="1" style="width: 60px;">
+									<button type="submit" onclick="addToCart(<?= $product['product_id']; ?>)">Add to Cart</button>
+								</form>
                         </div>
                     </div>
                 <?php endforeach; ?>

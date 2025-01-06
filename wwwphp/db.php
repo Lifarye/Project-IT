@@ -7,7 +7,7 @@ $db_name = "web page";
 $db_port = 3306;
 
 try {
-    $dsn = "mysql:host=$db_server;dbname=$db_name;port=$db_port";
+    $dsn = "mysql:host=$db_server;dbname=$db_name;port=$db_port;charset=utf8mb4";
     $pdo = new PDO($dsn, $db_user, $db_pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

@@ -25,9 +25,12 @@ if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
     if (!$found) {
         $_SESSION['cart'][] = ['product_id' => $productId, 'quantity' => $quantity];
     }
-
-    echo json_encode(['success' => true]);
+ // Przekierowanie użytkownika z powrotem na stronę, z której przyszedł
+    $referer = $_SERVER['HTTP_REFERER']; // Pobranie adresu URL strony, z której przyszedł użytkownik
+    header("Location: $referer"); // Przekierowanie na tę stronę
+    exit; // Zakończenie skryptu
 } else {
-    echo json_encode(['success' => false, 'message' => 'No product ID or quantity received']);
+    // Wyświetlenie błędu, jeśli żądanie jest niepoprawne
+    echo "Product ID or quantity not received.";
 }
 ?>

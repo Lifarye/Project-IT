@@ -36,7 +36,7 @@ CREATE TABLE `customers` (
   `phone` varchar(15) DEFAULT NULL,
   `address` text DEFAULT NULL,
   `registration_date` datetime DEFAULT current_timestamp(),
-    `role` varchar(50) NOT NULL DEFAULT 'user'
+  `role` varchar(50) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
@@ -44,11 +44,12 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `email`, `PASSWORD`, `phone`, `address`, `registration_date`, `role`) VALUES
-(1, 'John', 'Smith', 'john.smith@example.com', 'hashed_password_1', '123456789', '123 Main St, Springfield', '2024-11-19 22:04:52', 'user'),
-(2, 'Jane', 'Doe', 'jane.doe@example.com', 'hashed_password_2', '987654321', '456 Elm St, Springfield', '2024-11-19 22:04:52', 'user'),
-(3, 'Michael', 'Brown', 'michael.brown@example.com', 'hashed_password_3', '555555555', '789 Oak St, Springfield', '2024-11-19 22:04:52', 'user'),
-(4, 'Emily', 'Davis', 'emily.davis@example.com', 'hashed_password_4', '444444444', '321 Maple St, Springfield', '2024-11-19 22:04:52', 'user'),
-(5, 'David', 'Wilson', 'admin@example.com', 'hashed_password_5', '666666666', '654 Pine St, Springfield', '2024-11-19 22:04:52', 'admin');
+(1, 'John', 'Smith', 'john.smith@example.com', '$2y$10$1.J/diQMvJ427q1.xoieTe8GACBdCCbDi4my.qd0V//VRd2p62KzO', '123456789', '123 Main St, Springfield', '2024-11-19 22:04:52', 'user'),
+(2, 'Jane', 'Doe', 'jane.doe@example.com', '$2y$10$ng58GG5u380Z9KKJ9M3z8Ox6WJJaVQvh404s/fNGSbKiMOkd431Le', '987654321', '456 Elm St, Springfield', '2024-11-19 22:04:52', 'user'),
+(3, 'Michael', 'Brown', 'michael.brown@example.com', '$2y$10$QjT3YUlOEBDNjII7pkqs1OYxmK40y4ufY5m3VpJt/TLdO6D9qCxoq', '555555555', '789 Oak St, Springfield', '2024-11-19 22:04:52', 'user'),
+(4, 'Emily', 'Davis', 'emily.davis@example.com', '$2y$10$Egi5wCfIYCWf7kon/x0BgOcEl.pNF6KYesUbOL4/1as/U1CfBalQS', '444444444', '321 Maple St, Springfield', '2024-11-19 22:04:52', 'user'),
+(5, 'David', 'Wilson', 'david.wilson@example.com', '$2y$10$2YB3N/nL/awMl1rVLtAejuLLZQFhgu3JWHPi/tXIcKLcMesQG7/3W', '666666666', '654 Pine St, Springfield', '2024-11-19 22:04:52', 'admin');
+
 
 -- --------------------------------------------------------
 

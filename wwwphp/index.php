@@ -9,6 +9,13 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));  
 }
 
+if (isset($_SESSION['user_id'])) {
+    echo '<div class="user-info">';
+    echo '<img src="user_icon.png" >'; // Dodaj ikonę
+    echo '<span> Hello, user ID: ' . $_SESSION['user_id'] . '</span>';
+    echo '</div>';
+}
+
 // Lista produktów polecanych
 $featured_products = [
     [
@@ -122,6 +129,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'], $_POST['p
                     <li><a href="contact.php">Contact</a></li>
                     <?php if ($is_admin_logged_in): ?>
                         <li><a href="admin_dashboard.php">Admin Panel</a></li>
+					<?php elseif (isset($_SESSION['user_id'])): ?>
+						<li><a href="logout.php">Logout</a></li>
                     <?php else: ?>
                         <li><a href="login.php">Login</a></li>
                     <?php endif; ?>
@@ -189,24 +198,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'], $_POST['p
                 </div>
             </div>
         </section>
-
-        <?php if (!$is_admin_logged_in): ?>
-        <section id="login" class="login">
-            <h2>Admin Login</h2>
-            <?php if (isset($error)): ?>
-                <p class="error"><?php echo $error; ?></p>
-            <?php endif; ?>
-            <form method="POST">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-
-                <button type="submit">Login</button>
-            </form>
-        </section>
-        <?php endif; ?>
 
     </main>
 

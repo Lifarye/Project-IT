@@ -1,20 +1,7 @@
 <?php
 
 session_start();
-$db_server = "localhost";
-$db_user = "root";
-$db_pass = ""; 
-$db_name = "web page"; 
-$db_port = 3306;
-
-try {
-    $dsn = "mysql:host=$db_server;dbname=$db_name;port=$db_port;charset=utf8mb4";
-    $pdo = new PDO($dsn, $db_user, $db_pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    error_log("Connection failed: " . $e->getMessage());
-    die("Connection failed. Please try again later.");
-}
+include 'db.php';
 
 // Pobierz produkty z koszyka w sesji
 $cart_items = [];
@@ -26,7 +13,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
         $quantity = $cart_item['quantity'];
 
         // Pobierz szczegóły produktu
-        $product_query = "SELECT name, unit_price, image_url FROM products WHERE product_id = :product_id LIMIT 1";
+        $product_query = "SELECT name, price, image_url FROM products WHERE product_id = :product_id LIMIT 1";
         $stmt = $pdo->prepare($product_query);
         $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
         $stmt->execute();
@@ -35,7 +22,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
         if ($product) {
             $product['quantity'] = $quantity;
             $cart_items[] = $product;
-            $total_price += $product['unit_price'] * $quantity; // Oblicz całkowitą cenę (unit_price * quantity)
+            $total_price += $product['price'] * $quantity; // Oblicz całkowitą cenę (price * quantity)
         }
     }
 }
@@ -79,7 +66,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
                             <div>
                                 <h4><?= htmlspecialchars($item['name']) ?></h4>
                                 <p>Quantity: <?= htmlspecialchars($item['quantity']) ?></p>
-                                <p>Price: $<?= number_format($item['unit_price'], 2) ?></p>
+                                <p>Price: $<?= number_format($item['price'], 2) ?></p>
                             </div>
                             <div>
                                 <form method="POST" action="update_cart.php">
