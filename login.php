@@ -4,7 +4,7 @@ require 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Debugowanie: wypisz zawartość $_POST
-    var_dump($_POST);
+    //var_dump($_POST); //debugowanie przez wyświetlanie zawartości zmiennej
     
     // Sprawdzenie, czy pola istnieją
     if (isset($_POST['email']) && isset($_POST['password'])) {
